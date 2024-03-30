@@ -33,7 +33,7 @@ size_t countWords(char *string) {
 //pos vals not checked for validity
 //V1
 char *subscpy(char *string, int pos1, int pos2) {
-  size_t length = pos2 - pos1;
+  size_t length = pos2 - pos1 + 1;
   char *substring = calloc(length + 1, sizeof (char));
   for (int i = 0; i < length; i++) {
     substring[i] = string[pos1 + i];
