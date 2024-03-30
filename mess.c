@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
+//Below is string manipulation and parsing functions
 
 //Word amount counter.
 //Does not consider punctuation charachters
@@ -25,6 +28,19 @@ size_t countWords(char *string) {
   return amount;
 }
 
+//Get a copy of substring retrieved from a given string
+//Pos1 (included), pos2 (excluded);
+//pos vals not checked for validity
+//V1
+char *subscpy(char *string, int pos1, int pos2) {
+  size_t length = pos2 - pos1;
+  char *substring = calloc(length + 1, sizeof (char));
+  for (int i = 0; i < length; i++) {
+    substring[i] = string[pos1 + i];
+  }
+  return substring;
+}
+
 void strip(char string[]) {
   int startIndex = -1;
   int endIndex = strlen(string);
@@ -38,7 +54,7 @@ void strip(char string[]) {
   string[index] = '\0';
 }
 
-//========Above are functions allowing for code readability below===============
+// Miscellaneous below
 
 //Palindrome checker
 //Letters must be of the same case [Not implemented]
@@ -68,25 +84,34 @@ int compareStrings(char *string1, char *string2) {
 }
 
 void printFlag() {
-  size_t starsPerLine = 6;
+  size_t starsPerLine = 11;
   size_t starLines = 5;
-  size_t stripLength = 40;
+  size_t stripLength = 50;
   for (int i = 0; i < 13; i++) {
     for (int s = 0; s < stripLength; s++) {
-      if (s < starsPerLine * 2 && i < starLines) {
+      if (s < starsPerLine * 2 - 1 && i < starLines) {
         if (i % 2) {
           printf("%c", s % 2? '*' : ' ');
         } else {
           printf("%c", s % 2? ' ': '*');
         }
       } else {
-        printf("=");
+        if (s < starsPerLine * 2  && i < starLines) {
+          printf(" ");
+        } else {
+          printf("=");
+        }
       }
     }
     printf("\n");
   }
 }
 
+//Below is implementation of console parser
+
+
 int main(void) {
-  printFlag();
+  char *string = "Hello World";
+  char *substring = subscpy(string, 6, 11);
+  printf("%s\n", substring);
 }
