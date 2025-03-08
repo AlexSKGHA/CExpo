@@ -9,18 +9,20 @@
 #define SPECIAL_PASSWORD_CHARSET "!@#$%^&*()?"
 
 char *passgen(char **characterSet, size_t cs_length, size_t ps_length) {
-  srand(time(NULL));
   if ((ps_length == 0) || (cs_length == 0)) return NULL;
+  
   char *password = malloc(ps_length + 1);
-  size_t char_set_index;
+  if (password == NULL) return NULL;
+  
+  size_t charset_index;
   size_t char_index;
-  size_t char_set_length;
+  size_t str_length;
   size_t i;
   for (i = 0; i < ps_length; i++) {
-    char_set_index = rand() % cs_length;
-    char_set_length = strlen(characterSet[char_set_index]);
-    char_index = rand() % char_set_length;
-    password[i] = characterSet[char_set_index][char_index];
+    charset_index = rand() % cs_length;
+    str_length = strlen(characterSet[charset_index]);
+    char_index = rand() % str_length;
+    password[i] = characterSet[charset_index][char_index];
   }
   password[i] = '\0';
   return password;
